@@ -1,0 +1,83 @@
+#!/bin/bash
+#crunch wordlist size checker v0.2
+#by TAPE September 2010
+#
+#Versão PT-BR por Flávio Oliveira
+#www.flaviodeoliveira.com.br
+#16/08/2016
+
+#Colours
+#=======
+green=$(tput setaf 2 && tput bold)
+red=$(tput setaf 1 && tput bold)
+stand=$(tput sgr 0)
+#
+clear
+#
+echo
+echo $green"VOCÊ TEM ESPAÇO SUFICIENTE PARA SUA WORDLIST (CRUNCH)?!"
+echo "======================================================"
+echo "Cálculo: (x^y)*(y+1) = tamanho em bytes"
+echo "x= número de caracteres"
+echo "y= comprimento da palavra"
+echo
+echo $stand"Escolha o número de caracteres que serão usados na criação da wordlist"
+echo "====================================================================="
+echo "Exemplos ;"
+echo $red"10 $stand = Somente Números"
+echo $red"16 $stand = Hexadecimal"
+echo $red"26 $stand = Somente Alfanúmericos"
+echo $red"33 $stand = Caracteres especiais, incluindo o espaço"
+echo $red"36 $stand = Alfanúmerico + Números"
+echo $red"52 $stand = Minúsculas+Maiúsculas"
+echo $red"62 $stand = Minúsculas+Maiúsculas Alfanúmerico + Números"
+echo $red"95 $stand = Minúsculas+Maiúsculas Alfanúmerico + Números + Caracteres especiais, incluindo o espaço"
+echo
+echo -ne "Insira o número de caracteres a ser usado:$red \c"
+read X
+echo -ne $stand"Insira o comprimento de palavras/frases secretas: $red\c"
+read Y
+clear
+(tput sgr 0)
+echo 
+echo $stand"Número de caracteres com os quais a wordlist será criada: $red$X"
+echo $stand"Tamanho das palavras/frases secretas na wordlist: $red$Y"
+echo $stand"-------------------------------------------------------------"
+#
+# Calculations based on binary sizes ;
+# For comma seperated values for groups of 3 digits pipe the below calculation out through sed ;
+# sed -r ':L;s=\b([0-9]+)([0-9]{3})\b=\1,\2=g;t L'
+B=$( echo "scale=3;($X^$Y)*($Y+1)" | bc )
+KB=$( echo "scale=3;($X^$Y)*($Y+1) / 1024" | bc )
+MB=$( echo "scale=3;(($X^$Y)*($Y+1)/1024)/1024" | bc )
+GB=$( echo "scale=3;((($X^$Y)*($Y+1)/1024)/1024)/1024" | bc )
+TB=$( echo "scale=3;(((($X^$Y)*($Y+1)/1024)/1024)/1024)/1024" | bc )
+PB=$( echo "scale=3;((((($X^$Y)*($Y+1)/1024)/1024)/1024)/1024)/1024" | bc )
+#
+# Calculation for number of results ;
+# For comma seperated values for groups of 3 digits pipe the below calculation out through sed ;
+# sed -r ':L;s=\b([0-9]+)([0-9]{3})\b=\1,\2=g;t L'
+# Calculando o número de resultados;
+# Para valores separados por vírgulas para grupos de 3 dígitos do cálculo abaixo através sed;
+# Sed -r ': L; s = \ b ([0-9] +) ([0-9] {3}) \ b = \ 1, \ 2 = g; t L'
+NMBR=$( echo "($X^$Y)" | bc )
+echo
+#
+# Outcome of calculations ;
+# Resultado de cálculos ;
+echo $stand"Número de palavras/frases secretas na wordlist: $green$NMBR"
+(tput sgr 0)
+echo
+echo $stand"Tamanho Estimado da Wordlist ; "
+echo $green"B  $stand(Bytes)     = $green$B"
+echo $green"KB $stand(Kilobytes) = $green$KB"
+echo $green"MB $stand(Megabytes) = $green$MB"
+echo $green"GB $stand(Gigabytes) = $green$GB"
+echo $green"TB $stand(Terabytes) = $green$TB"
+echo $green"PB $stand(Petabytes) = $green$PB"
+(tput sgr 0)
+echo
+exit
+#
+#Last edit 27-09-2010 (original)
+#traduzido por Flávio Oliveira (18/08/16)
