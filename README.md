@@ -11,8 +11,6 @@
 <!-- ABOUT THE PROJECT -->
 ## Sobre 
 
-[![tela inicial][product-screenshot]]()
-
 Alguns dos scripts são de terceiros, mas estou mantendo os créditos dos autores originais. Nesses scripts eu modifico algumas parametros ou adiciono
 para acertar com alguns pontos que preciso.
 
@@ -30,4 +28,3 @@ Link do Projeto: [https://github.com/oliveiradeflavio/auditoria](https://github.
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/fladoliveira/
-[product-screenshot]: 
